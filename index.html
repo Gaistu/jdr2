@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de rôle policier - Noël</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Le Mystère du Dîner de Noël</h1>
+        <p>Explorez les pièces de la maison pour résoudre l'énigme de Noël.</p>
+    </header>
+    <div class="container">
+        <h2>Plan de la maison</h2>
+        <div class="map">
+            <!-- Les pièces seront ajoutées dynamiquement via script.js -->
+        </div>
+        <h2>Journal des indices</h2>
+        <ul id="log-list">
+            <!-- Les indices trouvés apparaîtront ici -->
+        </ul>
+    </div>
+    <div class="submit-section">
+        <h2>Résolvez l'enquête</h2>
+        <form id="submit-form">
+            <div class="form-group">
+                <label for="available-clues">Indices disponibles :</label>
+                <select id="available-clues" class="form-control">
+                    <!-- Les indices collectés apparaîtront ici -->
+                </select>
+                <button type="button" id="add-clue" class="add-button">Ajouter l'indice</button>
+            </div>
+
+            <div class="form-group">
+                <label for="selected-clues">Indices intégrés :</label>
+                <ul id="selected-clues" class="clue-list">
+                    <!-- Les indices ajoutés par le joueur apparaîtront ici -->
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="suspect">Qui est le coupable ?</label>
+                <select id="suspect" class="form-control">
+                    <option value="">-- Sélectionnez un suspect --</option>
+                    <option value="Fernanda">Fernanda</option>
+                    <option value="Sandra">Sandra</option>
+                    <option value="Sébastien">Sébastien</option>
+                    <option value="Luka">Luka</option>
+                    <option value="Iléna">Iléna</option>
+                    <option value="Leandro">Leandro</option>
+                    <option value="Rafael">Rafael</option>
+                </select>
+            </div>
+            <button type="button" id="submit-hypothesis" class="submit-button">Soumettre</button>
+        </form>
+        <div id="result-message" class="result-message"></div>
+    </div>
+
+    <div id="depositions-container" class="depositions-container">
+        <h2>Dépositions des Personnages</h2>
+
+        <!-- Fernanda -->
+        <div id="deposition-fernanda" class="deposition" style="display: none;">
+            <h3>Fernanda</h3>
+            <p>"J’étais dans la cuisine, occupée à préparer le dessert. J’ai entendu une dispute dans le salon, mais je
+                ne suis pas intervenue."</p>
+            <ul>
+                <li><strong>Qu’avez-vous entendu précisément pendant la dispute ?</strong> "C’était confus, mais Luka
+                    semblait très en colère."</li>
+                <li><strong>Pourquoi n’êtes-vous pas intervenue ?</strong> "Ils se disputent toujours, je pensais que ce
+                    n’était rien."</li>
+                <li><strong>Dernier moment où vous avez vu David ?</strong> "Avant le dessert, il semblait contrarié."
+                </li>
+                <li><strong>Aviez-vous des désaccords avec David ?</strong> "Oui, sur la vente d’un terrain familial."
+                </li>
+                <li><strong>Savez-vous où se trouvait Luka après le dîner ?</strong> "Dans le jardin, il voulait se
+                    calmer."</li>
+            </ul>
+            <button class="hide-deposition" data-target="deposition-fernanda">Masquer</button>
+        </div>
+        <div class="access-code-section">
+            <p>Code pour accéder à la déposition de Fernanda :</p>
+            <input type="password" id="access-fernanda" placeholder="Entrez le code">
+            <button class="access-button" data-target="deposition-fernanda" data-code="1508">Accéder</button>
+            <p class="error-message" style="display: none;">Code incorrect. Veuillez réessayer.</p>
+        </div>
+
+        <!-- Sandra -->
+        <div id="deposition-sandra" class="deposition" style="display: none;">
+            <h3>Sandra</h3>
+            <p>"Je suis montée chercher un cadeau. Quand je suis redescendue, j’ai vu Leandro sortir de la cave, il
+                semblait agité."</p>
+            <ul>
+                <li><strong>Pourquoi avez-vous quitté la table après le dîner ?</strong> "Pour chercher un cadeau."</li>
+                <li><strong>Êtes-vous sûre d’avoir vu Leandro sortir de la cave ?</strong> "Oui, il avait l’air
+                    étrange."</li>
+                <li><strong>Aviez-vous des désaccords récents avec David ?</strong> "Nous nous entendons rarement."</li>
+                <li><strong>Quelque chose d’anormal en descendant ?</strong> "Non, juste Leandro pressé."</li>
+            </ul>
+            <button class="hide-deposition" data-target="deposition-sandra">Masquer</button>
+        </div>
+        <div class="access-code-section">
+            <p>Code pour accéder à la déposition de Sandra :</p>
+            <input type="password" id="access-sandra" placeholder="Entrez le code">
+            <button class="access-button" data-target="deposition-sandra" data-code="0706">Accéder</button>
+            <p class="error-message" style="display: none;">Code incorrect. Veuillez réessayer.</p>
+        </div>
+
+        <!-- Sébastien -->
+        <div id="deposition-sebastien" class="deposition" style="display: none;">
+            <h3>Sébastien</h3>
+            <p>"J’étais dans le jardin pour fumer. Luka est passé, il semblait contrarié."</p>
+            <ul>
+                <li><strong>Pourquoi étiez-vous dans le jardin ?</strong> "Pour m’éloigner des tensions."</li>
+                <li><strong>Qu’avez-vous remarqué en voyant Luka ?</strong> "Il marchait vite, visiblement énervé."</li>
+                <li><strong>Avez-vous parlé à David ?</strong> "Non, je l’ai évité."</li>
+                <li><strong>Quand êtes-vous rentré ?</strong> "Dix minutes après."</li>
+            </ul>
+            <button class="hide-deposition" data-target="deposition-sebastien">Masquer</button>
+        </div>
+        <div class="access-code-section">
+            <p>Code pour accéder à la déposition de Sébastien :</p>
+            <input type="password" id="access-sebastien" placeholder="Entrez le code">
+            <button class="access-button" data-target="deposition-sebastien" data-code="0412">Accéder</button>
+            <p class="error-message" style="display: none;">Code incorrect. Veuillez réessayer.</p>
+        </div>
+
+        <!-- Luka -->
+        <div id="deposition-luka" class="deposition" style="display: none;">
+            <h3>Luka</h3>
+            <p>"Je suis sorti dans le jardin après une dispute avec David. Il m’a dit que je ne valais rien et que je
+                devais grandir. Je n’ai plus envie de parler de ça."</p>
+            <ul>
+                <li><strong>Quelle était la nature de votre dispute avec David ?</strong> "Il m’a reproché de ne rien
+                    faire de ma vie."</li>
+                <li><strong>Où êtes-vous allé après votre dispute ?</strong> "Dans le jardin, pour prendre l’air."</li>
+                <li><strong>Avez-vous vu quelqu’un d’autre dans le jardin ?</strong> "Juste mon père, Sébastien."</li>
+            </ul>
+            <button class="hide-deposition" data-target="deposition-luka">Masquer</button>
+        </div>
+        <div class="access-code-section">
+            <p>Code pour accéder à la déposition de Luka :</p>
+            <input type="password" id="access-luka" placeholder="Entrez le code">
+            <button class="access-button" data-target="deposition-luka" data-code="1609">Accéder</button>
+            <p class="error-message" style="display: none;">Code incorrect. Veuillez réessayer.</p>
+        </div>
+
+        <!-- Leandro -->
+        <div id="deposition-leandro" class="deposition" style="display: none;">
+            <h3>Leandro</h3>
+            <p>"Je suis descendu dans la cave pour chercher une bouteille de vin. Quand je suis remonté, David se
+                disputait avec quelqu’un."</p>
+            <ul>
+                <li><strong>Pourquoi étiez-vous dans la cave ce soir-là ?</strong> "Je cherchais une bouteille de vin
+                    pour le dîner."</li>
+                <li><strong>Qu’avez-vous entendu pendant la dispute ?</strong> "C’était confus, mais quelqu’un criait."
+                </li>
+            </ul>
+            <button class="hide-deposition" data-target="deposition-leandro">Masquer</button>
+        </div>
+        <div class="access-code-section">
+            <p>Code pour accéder à la déposition de Leandro :</p>
+            <input type="password" id="access-leandro" placeholder="Entrez le code">
+            <button class="access-button" data-target="deposition-leandro" data-code="0912">Accéder</button>
+            <p class="error-message" style="display: none;">Code incorrect. Veuillez réessayer.</p>
+        </div>
+
+        <!-- Rafael -->
+        <div id="deposition-rafael" class="deposition" style="display: none;">
+            <h3>Rafael</h3>
+            <p>"J’étais avec Iléna dans le salon. Tout le monde était tendu. Je ne sais rien de plus."</p>
+            <ul>
+                <li><strong>Que faisiez-vous dans le salon avec Iléna ?</strong> "On jouait pour éviter les disputes."
+                </li>
+            </ul>
+            <button class="hide-deposition" data-target="deposition-rafael">Masquer</button>
+        </div>
+        <div class="access-code-section">
+            <p>Code pour accéder à la déposition de Rafael :</p>
+            <input type="password" id="access-rafael" placeholder="Entrez le code">
+            <button class="access-button" data-target="deposition-rafael" data-code="1805">Accéder</button>
+            <p class="error-message" style="display: none;">Code incorrect. Veuillez réessayer.</p>
+        </div>
+
+        <!-- Iléna -->
+        <div id="deposition-ilena" class="deposition" style="display: none;">
+            <h3>Iléna</h3>
+            <p>"J’étais dans le salon avec Rafael. Luka avait l’air très énervé après avoir parlé avec David."</p>
+            <ul>
+                <li><strong>Qu’avez-vous vu ou entendu dans le salon ?</strong> "Des disputes. Luka semblait furieux."
+                </li>
+            </ul>
+            <button class="hide-deposition" data-target="deposition-ilena">Masquer</button>
+        </div>
+        <div class="access-code-section">
+            <p>Code pour accéder à la déposition de Iléna :</p>
+            <input type="password" id="access-ilena" placeholder="Entrez le code">
+            <button class="access-button" data-target="deposition-ilena" data-code="1807">Accéder</button>
+            <p class="error-message" style="display: none;">Code incorrect. Veuillez réessayer.</p>
+        </div>
+
+
+    </div>
+
+    <div id="code-access" class="code-access">
+        <button id="access-button"></button>
+    </div>
+
+
+    <!-- Section Maître du Jeu -->
+    <div id="game-master-section" class="game-master">
+        <h2>Maître du Jeu : Informations Complètes</h2>
+
+        <h3>Histoire Complète de Départ :</h3>
+        <p>
+            C’est la veille de Noël. Fernanda, la matriarche de la famille, a décidé d’organiser un dîner familial dans
+            sa grande maison. Elle souhaite profiter de cette occasion pour resserrer les liens entre les membres de sa
+            famille, souvent marqués par des tensions et des conflits.
+        </p>
+        <p>
+            Fernanda est une femme autoritaire qui a toujours exercé une influence forte sur ses enfants, David et
+            Sandra. David, son fils aîné, a toujours été son préféré, ce qui a alimenté une profonde jalousie chez
+            Sandra. Cette préférence n’est pas un secret, et elle est à l’origine de nombreux conflits dans la famille.
+        </p>
+        <p>
+            David est un homme autoritaire et critique. Il est souvent en désaccord avec presque tous les membres de la
+            famille, mais il est aussi celui qui semble tenir les rênes de l’héritage familial. Ses relations avec ses
+            enfants, Leandro et Rafael, sont également tendues, notamment avec Leandro, qui ne supporte plus l’exigence
+            et le mépris de son père.
+        </p>
+        <p>
+            Sandra, mariée à Sébastien, est constamment en quête de reconnaissance de la part de sa mère, Fernanda. Elle
+            ressent une grande frustration face à la préférence que sa mère accorde à David. Sébastien, quant à lui, est
+            souvent méprisé par Fernanda et David, qui le considèrent comme un opportuniste.
+        </p>
+        <p>
+            Les enfants de Sandra, Luka et Iléna, observent ces tensions d’un œil tantôt critique, tantôt désabusé.
+            Luka, impulsif et colérique, ressent une profonde haine envers son oncle David, qu’il considère comme
+            oppressif et humiliant. Iléna, plus réservée, essaie de rester à l’écart des conflits.
+        </p>
+        <p>
+            Au milieu de ces tensions, Leandro, le fils rebelle de David, est souvent en opposition ouverte avec son
+            père. Son frère cadet, Rafael, plus discret, tente de garder une certaine neutralité, mais il est témoin de
+            nombreuses disputes.
+        </p>
+        <p>
+            La soirée commence sur une note formelle, mais l’atmosphère devient rapidement tendue lorsque des remarques
+            acerbes et des discussions sur des sujets sensibles surgissent. Fernanda essaie de calmer les esprits, mais
+            elle-même ne peut cacher son agacement face aux disputes qui éclatent autour de la table.
+        </p>
+        <p>
+            Tout bascule lorsqu’un cri retentit, venant de la cave. Le corps de David est découvert, étendu au sol, une
+            corde serrée autour du cou. La famille est sous le choc. Mais très vite, la panique laisse place à la
+            suspicion. Chacun a un mobile, mais seul le vrai coupable connaît la vérité.
+        </p>
+
+        <h3>Indices Cruciaux :</h3>
+        <ul>
+            <li><strong>Journal intime :</strong> Un journal appartenant à Luka, contenant des critiques violentes
+                envers David. (Trouvé dans la chambre de Luka.)</li>
+            <li><strong>Chaussures boueuses :</strong> Une paire de chaussures boueuses appartenant à Luka,
+                correspondant aux traces trouvées dans la cave. (Trouvées dans la cour devant la maison.)</li>
+            <li><strong>Morceau de corde :</strong> Une corde identique à celle utilisée dans le meurtre. (Trouvée dans
+                le jardin.)</li>
+        </ul>
+
+        <h3>Le Coupable :</h3>
+        <p><strong>Luka :</strong> Le véritable coupable. Il a tué David lors d’un accès de colère après une dispute
+            dans la cave. Pour détourner les soupçons, il a laissé des indices incriminant Leandro.</p>
+
+        <h3>Histoire des Personnages :</h3>
+        <ul>
+            <li><strong>Fernanda :</strong> Matriarche autoritaire, elle favorise David, son fils aîné, et critique les
+                choix de vie de Sandra.</li>
+            <li><strong>David :</strong> Homme autoritaire et critique, il est au centre des tensions familiales. Sa
+                mort dévoile de nombreux secrets.</li>
+            <li><strong>Sandra :</strong> Sœur jalouse de David, elle cherche désespérément la reconnaissance de sa
+                mère, Fernanda.</li>
+            <li><strong>Sébastien :</strong> Mari méprisé de Sandra, il se sent exclu de la famille et supporte
+                difficilement les tensions.</li>
+            <li><strong>Iléna :</strong> Fille de Sandra et Sébastien, elle observe silencieusement les conflits et
+                essaie d’éviter les disputes.</li>
+            <li><strong>Luka :</strong> Le fils impulsif de Sandra et Sébastien. Il tue David dans un accès de colère et
+                manipule les indices pour accuser Leandro.</li>
+            <li><strong>Leandro :</strong> Fils rebelle de David, il est le coupable idéal en raison de ses conflits
+                constants avec son père.</li>
+            <li><strong>Rafael :</strong> Frère discret de Leandro, il reste en retrait mais est souvent témoin des
+                tensions familiales.</li>
+        </ul>
+    </div>
+
+    <!-- Bouton unique -->
+    <button id="toggle-master-section" class="master-button">Afficher/Masquer Maître du Jeu</button>
+    <footer>
+        🎄 Joyeux Noël et Bonne Chance ! 🎄
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>

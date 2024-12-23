@@ -1,0 +1,458 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0f7fa; /* Bleu clair pour l'ambiance hivernale */
+    color: #333;
+    background-image: url('https://www.transparenttextures.com/patterns/snow.png'); /* Motif neige */
+}
+
+header {
+    background-color: #b71c1c; /* Rouge vif pour un effet festif */
+    color: #fff;
+    text-align: center;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.8rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header p {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+/* Main Container */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease-in-out;
+    border: 4px solid #c62828; /* Bordure rouge */
+}
+
+/* Map Styles */
+.map {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.room {
+    background-color: #f1f8e9; /* Vert clair pour un look festif */
+    border: 2px solid #8bc34a;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #33691e;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.room:hover {
+    background-color: #dcedc8;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Snowflake Icon for Rooms */
+.room::before {
+    content: "❄️";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.5rem;
+}
+
+/* Log Styles */
+#game-log {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #e3f2fd;
+    border: 1px solid #64b5f6;
+    border-radius: 8px;
+}
+
+ul#log-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul#log-list li {
+    background: #fce4ec; /* Rose pâle pour un effet festif */
+    border: 1px solid #f48fb1;
+    border-radius: 6px;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    color: #ad1457;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Footer for Snowfall Effect */
+footer {
+    margin-top: 2rem;
+    text-align: center;
+    color: #fff;
+    font-size: 1rem;
+    padding: 1rem;
+    background-color: #1e88e5;
+    position: relative;
+}
+
+@keyframes snowfall {
+    0% {
+        top: -50px;
+    }
+    100% {
+        top: 200px;
+    }
+}
+
+.room:nth-child(7) { /* La cave */
+    background-color: #8e44ad; /* Violet pour un effet dramatique */
+    color: #fff;
+}
+
+.room:nth-child(7):hover {
+    background-color: #a569bd;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Styles des personnages */
+.character-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.character {
+    background-color: #ffebee;
+    border: 2px solid #f44336;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #b71c1c;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.character:hover {
+    background-color: #ffcdd2;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* styles pour les indices */
+ul#log-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul#log-list li {
+    background: #fff3e0; /* Couleur douce pour les indices */
+    border: 1px solid #ffcc80;
+    border-radius: 6px;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    color: #e65100;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Section de soumission */
+.submit-section {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.submit-section h2 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-control,
+.add-button {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #fff;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.add-button {
+    margin-top: 1rem;
+    background-color: #2196f3;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-button:hover {
+    background-color: #1e88e5;
+    transform: scale(1.05);
+}
+
+.clue-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.clue-list li {
+    padding: 0.8rem;
+    border-bottom: 1px solid #eee;
+    font-size: 1rem;
+    color: #555;
+}
+
+.clue-list li:last-child {
+    border-bottom: none;
+}
+
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.result-message {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.result-message.green {
+    color: #4caf50;
+}
+
+.result-message.red {
+    color: #f44336;
+}
+
+/* maitre du jeu */
+.game-master {
+    display: none; /* Masqué par défaut */
+    background-color: #fff3e0;
+    padding: 2rem;
+    border: 1px solid #ffc107;
+    border-radius: 10px;
+    margin-top: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.game-master h2 {
+    color: #d32f2f;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.game-master p {
+    color: #555;
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.game-master ul {
+    margin: 1rem 0;
+    padding: 0 1rem;
+    list-style-type: square;
+    color: #444;
+}
+
+.game-master ul li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+.master-button {
+    display: block;
+    margin: 2rem auto;
+    padding: 0.8rem 1.5rem;
+    background-color: #f44336;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.master-button:hover {
+    background-color: #d32f2f;
+    transform: scale(1.05);
+}
+
+
+/* dépositions */
+.depositions-container {
+    margin-top: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.access-code-section {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.access-code-section input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 70%;
+    margin-bottom: 0.5rem;
+}
+
+.access-code-section .access-button {
+    padding: 0.7rem 1rem;
+    background-color: #4caf50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.access-code-section .access-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.access-code-section .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.deposition {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.deposition h3 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.deposition ul {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+}
+
+.hide-deposition {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #f44336;
+    color: white;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.hide-deposition:hover {
+    background-color: #d32f2f;
+    transform: scale(1.05);
+}
