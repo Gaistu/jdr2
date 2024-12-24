@@ -5,7 +5,7 @@ const trueCulprit = "Luka"; // Le vrai coupable
 const essentialClues = [
     "Un journal intime appartenant à Luka, contenant des critiques violentes contre David.",
     "Une paire de chaussures boueuses correspondant aux traces trouvées dans la cave.",
-    "Un morceau de corde identique à celle utilisée dans le meurtre."
+    "Une corde identique à celle utilisée dans le meurtre."
 ];
 
 // Indices par pièce
