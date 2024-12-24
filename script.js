@@ -68,6 +68,32 @@ function addLog(clue) {
     updateAvailableClues(); // Mettre à jour le menu déroulant
 }
 
+// Fonction pour normaliser les chaînes (pour éviter les problèmes de formatage)
+function normalizeString(str) {
+    return str.trim().toLowerCase(); // Supprimer les espaces et uniformiser en minuscule
+}
+
+// Fonction pour valider si les indices collectés contiennent tous les indices essentiels
+function validateClues(collectedClues, requiredClues) {
+    const normalizedCollected = collectedClues.map(normalizeString);
+    const normalizedRequired = requiredClues.map(normalizeString);
+
+    return normalizedRequired.every(clue => normalizedCollected.includes(clue));
+}
+
+// Fonction pour afficher les indices trouvés dans une pièce
+function enterRoom(room) {
+    clearLog(); // Effacer les indices précédents
+
+    const clues = roomClues[room];
+    if (clues && clues.length > 0) {
+        alert(`Vous explorez ${room}. Voici ce que vous trouvez :`);
+        clues.forEach(addLog);
+    } else {
+        alert(`Vous explorez ${room}, mais rien de significatif ne semble s'y trouver.`);
+    }
+}
+
 // Effacer les indices affichés dans le journal
 function clearLog() {
     logList.innerHTML = "";
@@ -108,7 +134,8 @@ function submitHypothesis() {
     const selectedSuspect = document.getElementById('suspect').value;
     const resultMessage = document.getElementById('result-message');
 
-    if (selectedSuspect === trueCulprit && essentialClues.every(clue => selectedClues.includes(clue))) {
+    // Validation stricte
+    if (normalizeString(selectedSuspect) === normalizeString(trueCulprit) && validateClues(selectedClues, essentialClues)) {
         resultMessage.textContent = "Félicitations ! Vous avez résolu l'affaire avec succès.";
         resultMessage.className = "result-message green";
     } else {
