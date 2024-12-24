@@ -1,3 +1,4 @@
+// Journal des indices et menu déroulant
 const logList = document.getElementById('log-list');
 
 // Variables pour la solution
@@ -11,57 +12,78 @@ const essentialClues = [
 // Indices par pièce
 const roomClues = {
     "Cuisine": [
-        "Un torchon taché de sang, jeté à la hâte.",
-        "Une note manuscrite : 'Il faudra en parler après le dîner.'",
-        "Un verre brisé sur le sol. Des empreintes indiquent une personne qui aurait quitté la cuisine précipitamment (Sandra ?)."
+        "Un torchon taché de sang.",
+        "Une note manuscrite suspecte."
     ],
     "Salon": [
-        "Une photo de famille cassée sur la table basse, avec David et Fernanda au centre.",
-        "Un livre ouvert avec une annotation de David : 'Ce secret ne doit pas sortir.'"
+        "Une photo de famille cassée.",
+        "Un livre annoté par David."
     ],
     "Chambre 1": [
-        "Une lettre cachée dans la table de nuit, adressée à Sandra : 'Je ne te pardonnerai jamais.'",
-        "Un bijou appartenant à Fernanda, trouvé sous le lit, que Sandra aurait pu cacher.",
-        "Un mouchoir imbibé de parfum, identique à celui retrouvé dans la cave."
+        "Une lettre adressée à Sandra.",
+        "Un bijou caché sous le lit."
     ],
     "Chambre 2": [
-        "Un journal intime appartenant à Luka, contenant des critiques violentes contre David." // Indice crucial
+        "Un journal intime appartenant à Luka, contenant des critiques violentes contre David."
     ],
     "Chambre 3": [
-        "Une lettre déchirée dans un sac de Leandro : 'Je ne supporterai plus cette pression, c’est toi ou moi.'",
-        "Une bouteille de vin vide, identique à celle cassée dans la cave.",
-        "Un mot griffonné sur une feuille froissée : 'Il saura bientôt qui je suis.'"
+        "Une lettre déchirée.",
+        "Une bouteille de vin vide."
     ],
     "Salle de Bain": [
-        "Une serviette tachée de rouge, peut-être du vin... ou du sang.",
-        "Un gant en cuir trouvé près du lavabo, qui semble appartenir à Sébastien.",
-        "Un mot griffonné sur le miroir embué : 'VENGEANCE.'"
+        "Une serviette tachée de rouge.",
+        "Un gant en cuir."
     ],
     "Cave": [
         "Une bouteille cassée avec des traces de sang.",
-        "Une empreinte boueuse correspondant à une chaussure, mais non identifiée."
+        "Une empreinte de chaussure."
     ],
     "Jardin": [
-        "Une pelle récemment utilisée, avec de la terre fraîche.",
-        "Une lampe torche abandonnée près du cabanon, portant des empreintes de Leandro.",
-        "Un morceau de corde identique à celle utilisée dans le meurtre." // Indice crucial
+        "Une corde identique à celle utilisée dans le meurtre.",
+        "Une lampe torche abandonnée."
     ],
     "Cour devant la maison": [
-        "Des traces de pneus récentes, indiquant un départ précipité.",
-        "Une clé trouvée dans une flaque d’eau, correspondant à une boîte verrouillée dans la cave.",
-        "Une paire de chaussures boueuses correspondant aux traces trouvées dans la cave." // Indice crucial
+        "Des traces de pneus récentes.",
+        "Une paire de chaussures boueuses correspondant aux traces trouvées dans la cave."
     ]
 };
 
-// Effacer les indices affichés dans le journal
-function clearLog() {
-    logList.innerHTML = "";
+// Fonction pour afficher les indices trouvés dans une pièce
+function enterRoom(room) {
+    clearLog(); // Effacer les indices précédents
+    const clues = roomClues[room];
+    if (clues && clues.length > 0) {
+        alert(`Vous explorez ${room}. Voici ce que vous trouvez :`);
+        clues.forEach(addLog);
+    } else {
+        alert(`Vous explorez ${room}, mais rien de significatif ne semble s'y trouver.`);
+    }
+}
+
+// Ajouter un indice au journal
+function addLog(clue) {
+    const listItem = document.createElement('li');
+    listItem.textContent = clue;
+    logList.appendChild(listItem);
+    updateAvailableClues(); // Mettre à jour le menu déroulant
+}
+
+// Fonction pour normaliser les chaînes (pour éviter les problèmes de formatage)
+function normalizeString(str) {
+    return str.trim().toLowerCase(); // Supprimer les espaces et uniformiser en minuscule
+}
+
+// Fonction pour valider si les indices collectés contiennent tous les indices essentiels
+function validateClues(collectedClues, requiredClues) {
+    const normalizedCollected = collectedClues.map(normalizeString);
+    const normalizedRequired = requiredClues.map(normalizeString);
+
+    return normalizedRequired.every(clue => normalizedCollected.includes(clue));
 }
 
 // Fonction pour afficher les indices trouvés dans une pièce
 function enterRoom(room) {
-    // Effacer les indices précédents
-    clearLog();
+    clearLog(); // Effacer les indices précédents
 
     const clues = roomClues[room];
     if (clues && clues.length > 0) {
@@ -72,14 +94,12 @@ function enterRoom(room) {
     }
 }
 
-// Fonction pour ajouter un indice au journal
-function addLog(clue) {
-    const listItem = document.createElement('li');
-    listItem.textContent = clue;
-    logList.appendChild(listItem);
+// Effacer les indices affichés dans le journal
+function clearLog() {
+    logList.innerHTML = "";
 }
 
-// Fonction pour mettre à jour le menu déroulant des indices collectés
+// Mettre à jour le menu déroulant des indices collectés
 function updateAvailableClues() {
     const availableClues = document.getElementById('available-clues');
     availableClues.innerHTML = ""; // Réinitialiser la liste
@@ -92,14 +112,13 @@ function updateAvailableClues() {
     });
 }
 
-// Fonction pour ajouter un indice sélectionné à la liste des indices intégrés
+// Ajouter un indice sélectionné à la liste des indices intégrés
 function addClue() {
     const availableClues = document.getElementById('available-clues');
     const selectedClues = document.getElementById('selected-clues');
     const selectedOption = availableClues.value;
 
     if (selectedOption) {
-        // Vérifier si l'indice n'est pas déjà ajouté
         const existingClues = Array.from(selectedClues.children).map(li => li.textContent);
         if (!existingClues.includes(selectedOption)) {
             const clueItem = document.createElement('li');
@@ -109,19 +128,23 @@ function addClue() {
     }
 }
 
-// Fonction pour valider l'hypothèse
+// Valider l'hypothèse
 function submitHypothesis() {
     const selectedClues = Array.from(document.getElementById('selected-clues').children).map(li => li.textContent);
     const selectedSuspect = document.getElementById('suspect').value;
     const resultMessage = document.getElementById('result-message');
 
     // Validation stricte
-    if (selectedSuspect === trueCulprit && essentialClues.every(clue => selectedClues.includes(clue))) {
+    if (normalizeString(selectedSuspect) === normalizeString(trueCulprit) && validateClues(selectedClues, essentialClues)) {
         resultMessage.textContent = "Félicitations ! Vous avez résolu l'affaire avec succès.";
         resultMessage.className = "result-message green";
     } else {
         resultMessage.textContent = "Votre hypothèse est incorrecte. Vérifiez vos indices et suspect.";
         resultMessage.className = "result-message red";
+
+        // Réinitialiser après une erreur
+        document.getElementById('selected-clues').innerHTML = ""; // Effacer les indices sélectionnés
+        document.getElementById('suspect').value = ""; // Réinitialiser le suspect
     }
 }
 
@@ -138,6 +161,7 @@ function initializeRooms() {
         mapContainer.appendChild(roomDiv);
     });
 }
+
 
 // Ajouter des événements pour les interactions
 document.getElementById('log-list').addEventListener('DOMSubtreeModified', updateAvailableClues);
@@ -246,8 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-
 
 // Initialiser les pièces et interactions
 initializeRooms();
